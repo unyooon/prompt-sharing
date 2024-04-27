@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func PaginationHelper(c *gin.Context, q types.Query, sizeMax int) (types.Query, *exception.CustomException) {
+func PaginationHelper[T types.QueryInterface](c *gin.Context, q T, sizeMax int) (T, *exception.CustomException) {
 	query := q
 	if err := c.ShouldBindQuery(&query); err != nil {
 		e := &exception.CustomException{
@@ -16,14 +16,14 @@ func PaginationHelper(c *gin.Context, q types.Query, sizeMax int) (types.Query, 
 			Message: constants.BadRequestMessage,
 			Err:     err,
 		}
-		return types.Query{}, e
+		return query, e
 	}
 
-	if query.Size <= 0 || query.Size > sizeMax {
-		query.Size = sizeMax
+	if query.GetSize() <= 0 || query.GetSize() > sizeMax {
+		query.SetSize(sizeMax)
 	}
-	if query.Page <= 0 {
-		query.Page = 1
+	if query.GetPage() <= 0 {
+		query.SetPage(1)
 	}
 
 	return query, nil
