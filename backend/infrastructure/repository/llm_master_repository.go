@@ -12,9 +12,9 @@ type LlmMasterRepository struct {
 	db *gorm.DB
 }
 
-func NewLlmMasterRepository(db db.DbInterface) LlmMasterRepository {
+func NewLlmMasterRepository(db db.DbInterface) *LlmMasterRepository {
 	d := db.Connect()
-	return LlmMasterRepository{
+	return &LlmMasterRepository{
 		db: d,
 	}
 }

@@ -21,11 +21,10 @@ func NewReadPromptsInteractor(r repository.PromptRepositoryInterface) *ReadPromp
 
 func (i *ReadPromptsInteractor) Execute(c *gin.Context) (dto.ReadPromptsResponse, *exception.CustomException) {
 	var req = &dto.ReadPromptsRequest{}
-	req, qErr := helper.PaginationHelper(c, req, 50)
+	req, qErr := helper.PaginationHelper[*dto.ReadPromptsRequest](c, req, 50)
 	if qErr != nil {
 		return dto.ReadPromptsResponse{}, qErr
 	}
-
 	// クエリ文字列と引数を作成
 	var args []interface{}
 	var query string

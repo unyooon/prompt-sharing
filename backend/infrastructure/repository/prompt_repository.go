@@ -11,9 +11,9 @@ type PromptRepository struct {
 	db *gorm.DB
 }
 
-func NewPromptRepository(db db.DbInterface) PromptRepository {
+func NewPromptRepository(db db.DbInterface) *PromptRepository {
 	d := db.Connect()
-	return PromptRepository{
+	return &PromptRepository{
 		db: d,
 	}
 }

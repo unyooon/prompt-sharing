@@ -12,9 +12,9 @@ type ParameterMasterRepository struct {
 	db *gorm.DB
 }
 
-func NewParameterMasterRepository(db db.DbInterface) ParameterMasterRepository {
+func NewParameterMasterRepository(db db.DbInterface) *ParameterMasterRepository {
 	d := db.Connect()
-	return ParameterMasterRepository{
+	return &ParameterMasterRepository{
 		db: d,
 	}
 }

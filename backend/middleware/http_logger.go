@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"strconv"
@@ -30,10 +30,11 @@ func HttpLogger(c *gin.Context) {
 	uid, exists := c.Get("userId")
 	if !exists {
 		log.Printf("userId is not exists")
+		uid = "unknown"
 	}
 	reqTs := start.UTC().Format("2006-01-02T15:04:05+09:00")
-	reqBody, _ := ioutil.ReadAll(c.Request.Body)
-	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(reqBody))
+	reqBody, _ := io.ReadAll(c.Request.Body)
+	c.Request.Body = io.NopCloser(bytes.NewBuffer(reqBody))
 
 	requestLog := types.HttpRequestLogType{
 		BaseLogType: types.BaseLogType{

@@ -1,0 +1,217 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "PromptSharing API",
+        "title": "PromptSharing API",
+        "contact": {},
+        "license": {
+            "name": "yuta"
+        },
+        "version": "version(1.0)"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/prompt": {
+            "post": {
+                "description": "create prompt",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prompt"
+                ],
+                "summary": "Create Prompt",
+                "parameters": [
+                    {
+                        "description": "prompt",
+                        "name": "prompt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreatePromptRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/prompts": {
+            "get": {
+                "description": "read prompts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prompt"
+                ],
+                "summary": "Read Prompts",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "name": "isPublic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "llmId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ReadPromptsResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.BasePageResponse": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "totalElements": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.CreatePromptRequest": {
+            "type": "object",
+            "required": [
+                "description",
+                "llmId",
+                "parameters",
+                "text"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "llmId": {
+                    "type": "integer"
+                },
+                "parameters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.Parameter"
+                    }
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CreatedUserResponse": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.Parameter": {
+            "type": "object",
+            "required": [
+                "parameterId",
+                "value"
+            ],
+            "properties": {
+                "parameterId": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ParameterResponse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ReadPromptResponse": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "createdUser": {
+                    "$ref": "#/definitions/dto.CreatedUserResponse"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isPublic": {
+                    "type": "boolean"
+                },
+                "llmName": {
+                    "type": "string"
+                },
+                "parameters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ParameterResponse"
+                    }
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.ReadPromptsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ReadPromptResponse"
+                    }
+                },
+                "page": {
+                    "$ref": "#/definitions/dto.BasePageResponse"
+                }
+            }
+        }
+    }
+}

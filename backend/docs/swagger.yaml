@@ -1,0 +1,141 @@
+basePath: /
+definitions:
+  dto.BasePageResponse:
+    properties:
+      number:
+        type: integer
+      size:
+        type: integer
+      totalElements:
+        type: integer
+      totalPages:
+        type: integer
+    type: object
+  dto.CreatePromptRequest:
+    properties:
+      description:
+        type: string
+      llmId:
+        type: integer
+      parameters:
+        items:
+          $ref: '#/definitions/dto.Parameter'
+        type: array
+      text:
+        type: string
+    required:
+    - description
+    - llmId
+    - parameters
+    - text
+    type: object
+  dto.CreatedUserResponse:
+    properties:
+      displayName:
+        type: string
+    type: object
+  dto.Parameter:
+    properties:
+      parameterId:
+        type: integer
+      value:
+        type: integer
+    required:
+    - parameterId
+    - value
+    type: object
+  dto.ParameterResponse:
+    properties:
+      name:
+        type: string
+      value:
+        type: integer
+    type: object
+  dto.ReadPromptResponse:
+    properties:
+      createdAt:
+        type: string
+      createdUser:
+        $ref: '#/definitions/dto.CreatedUserResponse'
+      description:
+        type: string
+      id:
+        type: integer
+      isPublic:
+        type: boolean
+      llmName:
+        type: string
+      parameters:
+        items:
+          $ref: '#/definitions/dto.ParameterResponse'
+        type: array
+      text:
+        type: string
+    type: object
+  dto.ReadPromptsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.ReadPromptResponse'
+        type: array
+      page:
+        $ref: '#/definitions/dto.BasePageResponse'
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: PromptSharing API
+  license:
+    name: yuta
+  title: PromptSharing API
+  version: version(1.0)
+paths:
+  /prompt:
+    post:
+      consumes:
+      - application/json
+      description: create prompt
+      parameters:
+      - description: prompt
+        in: body
+        name: prompt
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePromptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create Prompt
+      tags:
+      - prompt
+  /prompts:
+    get:
+      consumes:
+      - application/json
+      description: read prompts
+      parameters:
+      - in: query
+        name: isPublic
+        type: boolean
+      - in: query
+        name: llmId
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ReadPromptsResponse'
+      summary: Read Prompts
+      tags:
+      - prompt
+swagger: "2.0"

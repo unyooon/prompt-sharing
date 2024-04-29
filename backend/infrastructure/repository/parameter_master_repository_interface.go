@@ -7,5 +7,5 @@ import (
 
 type ParameterMasterRepositoryInterface interface {
 	// 全パラメータマスタの取得
-	ReadParameterMasters() ([]entity.ParameterMaster, *exception.CustomException)
+	ReadParameterMasters(query interface{}, args ...interface{}) ([]entity.ParameterMaster, *exception.CustomException)
 }
