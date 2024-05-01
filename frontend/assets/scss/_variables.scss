@@ -1,0 +1,76 @@
+// Colors
+$primary-color-50: #f0f9f3;
+$primary-color-100: #dbf0df;
+$primary-color-200: #b9e1c4;
+$primary-color-300: #8bcaa0;
+$primary-color-400: #69b585;
+$primary-color-500: #38915c;
+$primary-color-600: #277447;
+$primary-color-700: #1f5d3a;
+$primary-color-800: #1b4a30;
+$primary-color-900: #173d29;
+$primary-color-950: #0c2217;
+
+/**
+ * Background Colors
+ */
+
+$background-color--body: #f2f2f2;
+$background-color--header: #fff;
+
+// Fill Button
+$background-color--fill-button: $primary-color-500;
+$background-color--fill-button-hover: $primary-color-600;
+$background-color--fill-button-active: $primary-color-700;
+$background-color--fill-button-disabled: $primary-color-200;
+
+// Outline Button
+$background-color--outline-button: #fff;
+$background-color--outline-button-hover: $primary-color-50;
+$background-color--outline-button-active: $primary-color-100;
+
+// Flat Button
+$background-color--tonal-button: #fff;
+$background-color--tonal-button-hover: $primary-color-50;
+$background-color--tonal-button-active: $primary-color-100;
+
+// code
+$background-color--code-dark: $primary-color-950;
+
+/**
+ * Text Colors
+ */
+$text-color--body: #5a5a63;
+$text-color--body-highlight: $primary-color-700;
+$text-color--button: #5a5a63;
+
+// Fill Button
+$text-color--fill-button: #fff;
+$text-color--fill-button-hover: #fff;
+$text-color--fill-button-active: #fff;
+$text-color--fill-button-disabled: $primary-color-700;
+
+// Outline Button
+$text-color--outline-button: $primary-color-700;
+$text-color--outline-button-hover: $primary-color-700;
+$text-color--outline-button-active: $primary-color-700;
+
+// Flat Button
+$text-color--tonal-button: $text-color--button;
+$text-color--tonal-button-hover: $primary-color-700;
+$text-color--tonal-button-active: $primary-color-700;
+
+// code
+$text-color--code: $primary-color-600;
+
+// link
+$text-color--link: $primary-color-400;
+
+/**
+ * Border Colors
+ */
+
+// Outline Button
+$border-color--outline-button: $primary-color-700;
+$border-color--outline-button-hover: $primary-color-700;
+$border-color--outline-button-active: $primary-color-700;
