@@ -1,13 +1,22 @@
 <template>
   <div class="wrapper">
-    <Header />
+    <Header
+      :is-sign-in="!!data?.user"
+      :user-img="userImg"
+      @sign-out="signOut"
+    />
     <div class="main">
       <slot />
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import UserIcon from "~/assets/images/user.svg";
+const { data, signOut } = useAuth();
+
+const userImg = UserIcon;
+</script>
 
 <style lang="scss" scoped>
 .wrapper {

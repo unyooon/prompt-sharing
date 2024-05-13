@@ -1,8 +1,8 @@
 <template>
-  <div class="fill-button">
+  <NuxtLink class="fill-button" :to="props.to">
     {{ props.text }}
     <svg
-      v-if="isShowArray"
+      v-if="isShowArrow"
       stroke="currentColor"
       fill="currentColor"
       stroke-width="0"
@@ -19,18 +19,20 @@
         clip-rule="evenodd"
       ></path>
     </svg>
-  </div>
+  </NuxtLink>
 </template>
 
 <script lang="ts" setup>
 interface Props {
   text: string;
-  isShowArray: boolean;
+  isShowArrow: boolean;
+  to: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   text: "Button",
-  isShowArray: false,
+  isShowArrow: false,
+  to: "/",
 });
 </script>
 
