@@ -14,6 +14,10 @@ import (
 	"github.com/unyooon/prompt-sharing/infrastructure/repository"
 )
 
+import (
+	_ "github.com/unyooon/prompt-sharing/docs"
+)
+
 // Injectors from wire.go:
 
 func InitializeHandler(s setting.Setting) *Routing {

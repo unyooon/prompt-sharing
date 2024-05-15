@@ -23,12 +23,15 @@ func main() {
 		log.Printf("Error loading .env file")
 	}
 	s := setting.Setting{
-		Dsn:          os.Getenv("DSN"),
-		Port:         os.Getenv("PORT"),
-		B2CJwkUri:    os.Getenv("B2C_JWK_ENDPOINT"),
-		B2CTenantId:  os.Getenv("B2C_TENANT_ID"),
-		B2CClientId:  os.Getenv("B2C_CLIENT_ID"),
-		StripeApiKey: os.Getenv("STRIPE_API_KEY"),
+		Dsn:                os.Getenv("DSN"),
+		Port:               os.Getenv("PORT"),
+		B2CJwkUri:          os.Getenv("B2C_JWK_ENDPOINT"),
+		B2CTenantId:        os.Getenv("B2C_TENANT_ID"),
+		B2CClientId:        os.Getenv("B2C_CLIENT_ID"),
+		StripeApiKey:       os.Getenv("STRIPE_API_KEY"),
+		GoogleClientId:     os.Getenv("GOOGLE_CLIENT_ID"),
+		GoogleClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
+		GoogleRedirectUrl:  os.Getenv("GOOGLE_REDIRECT_URL"),
 	}
 	r := InitializeHandler(s)
 	r.Run()

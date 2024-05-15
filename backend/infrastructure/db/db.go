@@ -12,27 +12,22 @@ type Db struct {
 }
 
 func NewDb(setting setting.Setting) *Db {
-	// db, err := gorm.Open("mssql", setting.Dsn)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
+	db, err := gorm.Open("mssql", setting.Dsn)
+	if err != nil {
+		panic(err.Error())
+	}
 
-	// d := &Db{
-	// 	Connection: db,
-	// }
-	// d.autoMigration()
+	d := &Db{
+		Connection: db,
+	}
+	d.autoMigration()
 
-	// return d
-
-	// TODO: mock
-	return &Db{}
+	return d
 }
 
 func (d *Db) Connect() *gorm.DB {
-	// return d.Connection
+	return d.Connection
 
-	// TODO: mock
-	return nil
 }
 
 func (d *Db) autoMigration() {

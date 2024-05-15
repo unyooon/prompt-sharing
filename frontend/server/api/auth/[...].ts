@@ -12,4 +12,29 @@ export default NuxtAuthHandler({
       clientSecret: config.googleClientSecret,
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    jwt: async ({ token, user, account, profile }) => {
+      console.log(account);
+      console.log(token);
+      if (user?.email) {
+        token.providerInfo = {
+          provider: account?.provider,
+          access_token: account?.access_token,
+          expire_at: account?.expires_at,
+          refresh_token: account?.refresh_token,
+          ...user,
+        };
+      }
+
+      return Promise.resolve(token);
+    },
+    session: async ({ session, token, user }) => {
+      (session as any).providerInfo = token?.providerInfo;
+
+      return Promise.resolve({ ...session });
+    },
+  },
 });

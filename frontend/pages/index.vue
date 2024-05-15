@@ -7,16 +7,22 @@
       </div>
     </div>
     <div class="home__prompt-container">
+      <!-- <CardsPromptCard />
       <CardsPromptCard />
       <CardsPromptCard />
       <CardsPromptCard />
       <CardsPromptCard />
       <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard />
+      <CardsPromptCard /> -->
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+const { data } = useAuth();
+
+console.log(data.value?.providerInfo);
+</script>
 
 <style lang="scss" scoped>
 .home {

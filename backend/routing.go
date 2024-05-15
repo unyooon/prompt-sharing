@@ -27,7 +27,7 @@ func NewRouting(
 
 	r.Gin.Use(gin.Recovery())
 	r.Gin.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	// r.Gin.Use(middleware.ValidateToken(r.Setting))
+	r.Gin.Use(middleware.ValidateToken(r.Setting))
 	r.Gin.Use(middleware.HttpLogger)
 	r.setRouting()
 
