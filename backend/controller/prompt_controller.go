@@ -42,7 +42,7 @@ func (pc *PromptController) ReadPrompts(c *gin.Context) {
 // @Produce      json
 // @Param        prompt body dto.CreatePromptRequest true "prompt"
 // @Success      200
-// @Router       /prompt [post]
+// @Router       /prompts [post]
 func (pc *PromptController) CreatePrompt(c *gin.Context) {
 	err := pc.PromptCreater.Execute(c)
 	Handler(c, nil, err)

@@ -67,5 +67,6 @@ func ValidateTokenWithGoogle(s setting.Setting) gin.HandlerFunc {
 		}
 
 		c.Set("userId", userInfo.UserId)
+		c.Set("mailAddress", userInfo.Email)
 	}
 }

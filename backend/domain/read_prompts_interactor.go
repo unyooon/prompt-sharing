@@ -29,18 +29,18 @@ func (i *ReadPromptsInteractor) Execute(c *gin.Context) (dto.ReadPromptsResponse
 	var args []interface{}
 	var query string
 	if req.LlmId != nil {
-		query += "llmId = ?"
-		args = append(args, req.LlmId)
+		query += "llm_id = ?"
+		args = append(args, *req.LlmId)
 	}
-	if req.IsPublic {
+	if req.IsPublic != nil {
 		if query != "" {
 			query += " AND "
 		}
-		query += "isPublic = ?"
-		args = append(args, req.IsPublic)
+		query += "is_public = ?"
+		args = append(args, *req.IsPublic)
 	}
 
-	prompts, promptsErr := i.PromptRepository.ReadPrompts(req.Size, req.Page*req.Size, query, args...)
+	prompts, promptsErr := i.PromptRepository.ReadPrompts(req.Size, (req.Page-1)*req.Size, query, args...)
 	if promptsErr != nil {
 		return dto.ReadPromptsResponse{}, promptsErr
 	}

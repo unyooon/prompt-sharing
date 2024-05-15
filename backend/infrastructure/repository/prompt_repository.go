@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/unyooon/prompt-sharing/core/constants"
 	"github.com/unyooon/prompt-sharing/domain/exception"
 	"github.com/unyooon/prompt-sharing/entity"
 	"github.com/unyooon/prompt-sharing/infrastructure/db"
@@ -19,39 +20,25 @@ func NewPromptRepository(db db.DbInterface) *PromptRepository {
 }
 
 func (repo *PromptRepository) ReadPrompts(limit int, offset int, query interface{}, args ...interface{}) ([]entity.Prompt, *exception.CustomException) {
-	// var prompts []entity.Prompt
-	// if err := repo.db.Preload("Llm").Preload("ParameterMaster").Limit(limit).Offset(offset).Where(query, args).Error; err != nil {
-	// 	return prompts, &exception.CustomException{
-	// 		Code:    constants.InternalServerErrorCode,
-	// 		Message: constants.DatabaseError,
-	// 		Err:     err,
-	// 	}
-	// }
-	// return prompts, nil
+	var prompts []entity.Prompt
 
-	// TODO: mock
-	prompts := []entity.Prompt{
-		{
-			LlmId:       1,
-			Text:        "prompt1",
-			Description: "description1",
-			IsPublic:    true,
-			CreatedBy:   "user1",
-		},
+	if err := repo.db.Preload("Llm").Preload("Parameters").Where(query, args...).Order("created_at").Limit(limit).Offset(offset).Find(&prompts).Error; err != nil {
+		return prompts, &exception.CustomException{
+			Code:    constants.InternalServerErrorCode,
+			Message: constants.DatabaseError,
+			Err:     err,
+		}
 	}
 	return prompts, nil
 }
 
 func (repo *PromptRepository) Create(prompt entity.Prompt) (entity.Prompt, *exception.CustomException) {
-	// if err := repo.db.Create(&prompt).Error; err != nil {
-	// 	return prompt, &exception.CustomException{
-	// 		Code:    constants.InternalServerErrorCode,
-	// 		Message: constants.DatabaseError,
-	// 		Err:     err,
-	// 	}
-	// }
-	// return prompt, nil
-
-	// TODO: mock
+	if err := repo.db.Create(&prompt).Error; err != nil {
+		return prompt, &exception.CustomException{
+			Code:    constants.InternalServerErrorCode,
+			Message: constants.DatabaseError,
+			Err:     err,
+		}
+	}
 	return prompt, nil
 }

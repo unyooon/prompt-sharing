@@ -20,9 +20,10 @@ func NewLlmMasterRepository(db db.DbInterface) *LlmMasterRepository {
 }
 
 // LLMマスタの単体取得
-func (repo *LlmMasterRepository) ReadLlmMaster(query interface{}, args ...interface{}) (entity.LlmMaster, *exception.CustomException) {
+func (repo *LlmMasterRepository) ReadLlmMaster(llmId uint) (entity.LlmMaster, *exception.CustomException) {
 	var llmMaster entity.LlmMaster
-	if err := repo.db.Where(query, args).First(&llmMaster).Error; err != nil {
+
+	if err := repo.db.First(&llmMaster, llmId).Error; err != nil {
 		return llmMaster, &exception.CustomException{
 			Code:    constants.InternalServerErrorCode,
 			Message: constants.DatabaseError,
@@ -33,14 +34,14 @@ func (repo *LlmMasterRepository) ReadLlmMaster(query interface{}, args ...interf
 }
 
 // 全LLMマスタ取得
-func (repo *LlmMasterRepository) ReadLlmsMaster(query interface{}, args ...interface{}) ([]entity.LlmMaster, *exception.CustomException) {
-	var llmsMaster []entity.LlmMaster
-	if err := repo.db.Where(query, args).Find(&llmsMaster).Error; err != nil {
-		return llmsMaster, &exception.CustomException{
+func (repo *LlmMasterRepository) ReadLlmsMaster() ([]entity.LlmMaster, *exception.CustomException) {
+	var llmsMasters []entity.LlmMaster
+	if err := repo.db.Find(&llmsMasters).Error; err != nil {
+		return llmsMasters, &exception.CustomException{
 			Code:    constants.InternalServerErrorCode,
 			Message: constants.DatabaseError,
 			Err:     err,
 		}
 	}
-	return llmsMaster, nil
+	return llmsMasters, nil
 }

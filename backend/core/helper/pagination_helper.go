@@ -1,6 +1,8 @@
 package helper
 
 import (
+	"log"
+
 	"github.com/unyooon/prompt-sharing/core/constants"
 	"github.com/unyooon/prompt-sharing/core/types"
 	"github.com/unyooon/prompt-sharing/domain/exception"
@@ -11,6 +13,7 @@ import (
 func PaginationHelper[T types.QueryInterface](c *gin.Context, q T, sizeMax int) (T, *exception.CustomException) {
 	query := q
 	if err := c.ShouldBindQuery(&query); err != nil {
+		log.Print(err)
 		e := &exception.CustomException{
 			Code:    constants.BadRequestCode,
 			Message: constants.BadRequestMessage,

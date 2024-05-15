@@ -8,6 +8,6 @@ type CreatePromptRequest struct {
 }
 
 type Parameter struct {
-	ParameterMasterId uint `json:"parameterId" binding:"required"`
-	Value             int  `json:"value" binding:"required"`
+	ParameterMasterId uint `json:"parameterId"`
+	Value             int  `json:"value"`
 }

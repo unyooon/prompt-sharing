@@ -90,26 +90,6 @@ info:
   title: PromptSharing API
   version: version(1.0)
 paths:
-  /prompt:
-    post:
-      consumes:
-      - application/json
-      description: create prompt
-      parameters:
-      - description: prompt
-        in: body
-        name: prompt
-        required: true
-        schema:
-          $ref: '#/definitions/dto.CreatePromptRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      summary: Create Prompt
-      tags:
-      - prompt
   /prompts:
     get:
       consumes:
@@ -118,6 +98,7 @@ paths:
       parameters:
       - in: query
         name: isPublic
+        required: true
         type: boolean
       - in: query
         name: llmId
@@ -138,4 +119,36 @@ paths:
       summary: Read Prompts
       tags:
       - prompt
+    post:
+      consumes:
+      - application/json
+      description: create prompt
+      parameters:
+      - description: prompt
+        in: body
+        name: prompt
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePromptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create Prompt
+      tags:
+      - prompt
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: ユーザーを登録します
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: ユーザー登録
+      tags:
+      - user
 swagger: "2.0"

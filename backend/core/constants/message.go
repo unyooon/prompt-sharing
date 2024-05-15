@@ -13,6 +13,7 @@ const (
 	NotFoundSubscriptionMessage    Message = "Not Found Subscription"
 	NotFoundUser                   Message = "Not Found User"
 	NotFoundUserId                 Message = "Not Found UserId"
+	NotFountLlm                    Message = "Not Found LLM"
 	InternalServerErrorMessage     Message = "Internal Server Error"
 
 	DatabaseError Message = "Database Error"

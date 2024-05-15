@@ -28,6 +28,9 @@ func InitializeHandler(s setting.Setting) *Routing {
 	createPromptInteractor := domain.NewCreatePromptInteractor(promptRepository, llmMasterRepository, parameterMasterRepository)
 	readPromptsInteractor := domain.NewReadPromptsInteractor(promptRepository)
 	promptController := controller.NewPromptController(createPromptInteractor, readPromptsInteractor)
-	routing := NewRouting(promptController, s)
+	userRepository := repository.NewUserRepository(dbDb)
+	createUserInteractor := domain.NewCreateUserInteractor(userRepository)
+	userController := controller.NewUserController(createUserInteractor)
+	routing := NewRouting(promptController, userController, s)
 	return routing
 }

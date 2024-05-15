@@ -18,7 +18,51 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/prompt": {
+        "/prompts": {
+            "get": {
+                "description": "read prompts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prompt"
+                ],
+                "summary": "Read Prompts",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "name": "isPublic",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "llmId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ReadPromptsResponse"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "create prompt",
                 "consumes": [
@@ -49,9 +93,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/prompts": {
-            "get": {
-                "description": "read prompts",
+        "/users": {
+            "post": {
+                "description": "ユーザーを登録します",
                 "consumes": [
                     "application/json"
                 ],
@@ -59,37 +103,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "prompt"
+                    "user"
                 ],
-                "summary": "Read Prompts",
-                "parameters": [
-                    {
-                        "type": "boolean",
-                        "name": "isPublic",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "llmId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "size",
-                        "in": "query"
-                    }
-                ],
+                "summary": "ユーザー登録",
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/dto.ReadPromptsResponse"
-                        }
+                        "description": "OK"
                     }
                 }
             }

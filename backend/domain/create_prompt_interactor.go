@@ -50,6 +50,17 @@ func (i *CreatePromptInteractor) Execute(c *gin.Context) *exception.CustomExcept
 
 	json.Unmarshal(body, &req)
 
+	// LLMの存在確認
+	_, llmErr := i.LlmMasterRepository.ReadLlmMaster(req.LlmId)
+	if llmErr != nil {
+		e := &exception.CustomException{
+			Code:    constants.NotFoundCode,
+			Message: constants.NotFountLlm,
+			Err:     llmErr.Err,
+		}
+		return e
+	}
+
 	// パラメータの定義
 	var parameters []entity.Parameter
 	for _, p := range req.Parameters {

@@ -6,6 +6,6 @@ import (
 )
 
 type LlmMasterRepositoryInterface interface {
-	ReadLlmMaster(query interface{}, args ...interface{}) (entity.LlmMaster, *exception.CustomException)
-	ReadLlmsMaster(query interface{}, args ...interface{}) ([]entity.LlmMaster, *exception.CustomException)
+	ReadLlmMaster(llmId uint) (entity.LlmMaster, *exception.CustomException)
+	ReadLlmsMaster() ([]entity.LlmMaster, *exception.CustomException)
 }
