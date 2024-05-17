@@ -47,6 +47,5 @@ func (r *Routing) setRouting() {
 }
 
 func (r *Routing) Run() {
-	// r.Gin.Run(r.Setting.Port)
-	r.Gin.Run("localhost:8080")
+	r.Gin.Run(r.Setting.Port)
 }
