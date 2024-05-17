@@ -13,7 +13,7 @@ pr: none
 variables:
   - group: DEV_API_ENV
   - name: vmImageName
-    value: ubuntu-18.04
+    value: ubuntu-20.04
 
 stages:
   - stage: Build
