@@ -19,9 +19,28 @@
 </template>
 
 <script lang="ts" setup>
-const { data } = useAuth();
+import type { ReadPromptResponse } from "~/types/api";
 
-console.log(data.value?.providerInfo);
+const prompts = ref<ReadPromptResponse[]>([]);
+const isLoading = ref(true);
+
+const fetchPrompts = async () => {
+  try {
+    const api = useApi();
+    const response = await api.prompts.get(1, 10); // 例として、公開プロンプト、LLM ID 1、ページ 1、サイズ 10を取得
+    if (response) {
+      prompts.value = response.data;
+    }
+  } catch (err) {
+    console.error("Error fetching prompts:", err);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchPrompts();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -70,3 +89,4 @@ console.log(data.value?.providerInfo);
   }
 }
 </style>
+~/composables/api

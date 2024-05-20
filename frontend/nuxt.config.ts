@@ -48,5 +48,8 @@ export default defineNuxtConfig({
     googleClientId: "",
     googleClientSecret: "",
     authOrigin: "http://localhost:3000",
+    public: {
+      apiBaseUrl: "http://localhost:3000",
+    },
   },
 });

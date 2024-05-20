@@ -17,8 +17,6 @@ export default NuxtAuthHandler({
   },
   callbacks: {
     jwt: async ({ token, user, account, profile }) => {
-      console.log(account);
-      console.log(token);
       if (user?.email) {
         token.providerInfo = {
           provider: account?.provider,
