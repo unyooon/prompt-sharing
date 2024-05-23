@@ -18,6 +18,32 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/llm-masters": {
+            "get": {
+                "description": "Read LLM Masters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "llm_master"
+                ],
+                "summary": "Read LLM Masters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.ReadLlmMasterResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/prompts": {
             "get": {
                 "description": "read prompts",
@@ -35,8 +61,7 @@ const docTemplate = `{
                     {
                         "type": "boolean",
                         "name": "isPublic",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -46,6 +71,11 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "q",
                         "in": "query"
                     },
                     {
@@ -168,10 +198,6 @@ const docTemplate = `{
         },
         "dto.Parameter": {
             "type": "object",
-            "required": [
-                "parameterId",
-                "value"
-            ],
             "properties": {
                 "parameterId": {
                     "type": "integer"
@@ -188,6 +214,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "value": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ReadLlmMasterResponse": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "llmId": {
                     "type": "integer"
                 }
             }

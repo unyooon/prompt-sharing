@@ -13,16 +13,19 @@ var SuperSet = wire.NewSet(
 	// controller
 	controller.NewPromptController,
 	controller.NewUserController,
+	controller.NewLlmMasterController,
 
 	// usecase
 	domain.NewCreatePromptInteractor,
 	domain.NewReadPromptsInteractor,
 	domain.NewCreateUserInteractor,
+	domain.NewReadLlmMastersInteractor,
 
 	// bind
 	wire.Bind(new(usecase.PromptCreater), new(*domain.CreatePromptInteractor)),
 	wire.Bind(new(usecase.PromptsReader), new(*domain.ReadPromptsInteractor)),
 	wire.Bind(new(usecase.UserCreater), new(*domain.CreateUserInteractor)),
+	wire.Bind(new(usecase.LlmMastersReader), new(*domain.ReadLlmMastersInteractor)),
 
 	// repository
 	repository.NewLlmMasterRepository,

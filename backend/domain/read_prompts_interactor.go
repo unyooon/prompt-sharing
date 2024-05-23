@@ -39,6 +39,13 @@ func (i *ReadPromptsInteractor) Execute(c *gin.Context) (dto.ReadPromptsResponse
 		query += "is_public = ?"
 		args = append(args, *req.IsPublic)
 	}
+	if req.SearchQuery != "" {
+		if query != "" {
+			query += " AND "
+		}
+		query += "description = ?"
+		args = append(args, req.SearchQuery)
+	}
 
 	prompts, promptsErr := i.PromptRepository.ReadPrompts(req.Size, (req.Page-1)*req.Size, query, args...)
 	if promptsErr != nil {

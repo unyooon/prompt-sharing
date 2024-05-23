@@ -6,6 +6,7 @@ import (
 
 type ReadPromptsRequest struct {
 	types.Query
-	LlmId    *uint `form:"llmId"`
-	IsPublic *bool `form:"isPublic"`
+	LlmId       *uint  `form:"llmId"`
+	IsPublic    *bool  `form:"isPublic"`
+	SearchQuery string `form:"q"`
 }

@@ -40,15 +40,19 @@ definitions:
         type: integer
       value:
         type: integer
-    required:
-    - parameterId
-    - value
     type: object
   dto.ParameterResponse:
     properties:
       name:
         type: string
       value:
+        type: integer
+    type: object
+  dto.ReadLlmMasterResponse:
+    properties:
+      displayName:
+        type: string
+      llmId:
         type: integer
     type: object
   dto.ReadPromptResponse:
@@ -90,6 +94,23 @@ info:
   title: PromptSharing API
   version: version(1.0)
 paths:
+  /llm-masters:
+    get:
+      consumes:
+      - application/json
+      description: Read LLM Masters
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ReadLlmMasterResponse'
+            type: array
+      summary: Read LLM Masters
+      tags:
+      - llm_master
   /prompts:
     get:
       consumes:
@@ -98,7 +119,6 @@ paths:
       parameters:
       - in: query
         name: isPublic
-        required: true
         type: boolean
       - in: query
         name: llmId
@@ -106,6 +126,9 @@ paths:
       - in: query
         name: page
         type: integer
+      - in: query
+        name: q
+        type: string
       - in: query
         name: size
         type: integer

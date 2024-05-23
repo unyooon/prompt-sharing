@@ -12,6 +12,32 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
+        "/llm-masters": {
+            "get": {
+                "description": "Read LLM Masters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "llm_master"
+                ],
+                "summary": "Read LLM Masters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.ReadLlmMasterResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/prompts": {
             "get": {
                 "description": "read prompts",
@@ -29,8 +55,7 @@
                     {
                         "type": "boolean",
                         "name": "isPublic",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "integer",
@@ -40,6 +65,11 @@
                     {
                         "type": "integer",
                         "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "q",
                         "in": "query"
                     },
                     {
@@ -162,10 +192,6 @@
         },
         "dto.Parameter": {
             "type": "object",
-            "required": [
-                "parameterId",
-                "value"
-            ],
             "properties": {
                 "parameterId": {
                     "type": "integer"
@@ -182,6 +208,17 @@
                     "type": "string"
                 },
                 "value": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ReadLlmMasterResponse": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "llmId": {
                     "type": "integer"
                 }
             }
