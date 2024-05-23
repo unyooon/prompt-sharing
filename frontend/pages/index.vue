@@ -2,8 +2,11 @@
   <div class="home">
     <div class="home__search-container">
       <div class="home__head-text">Search the prompts you're looking for</div>
+      <div class="home__create-prompt-button-container"></div>
       <div class="home__search-box">
-        <SearchesPromptSearch />
+        <SearchesPromptSearch
+          placeholder="Search for tag, prompt, or username"
+        />
       </div>
     </div>
     <div class="home__prompt-container">
@@ -27,7 +30,7 @@ const isLoading = ref(true);
 const fetchPrompts = async () => {
   try {
     const api = useApi();
-    const response = await api.prompts.get(1, 10); // 例として、公開プロンプト、LLM ID 1、ページ 1、サイズ 10を取得
+    const response = await api.prompts.get(1, 30);
     if (response) {
       prompts.value = response.data;
     }
@@ -50,6 +53,18 @@ onMounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &__create-prompt-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__create-prompt-button {
+    max-width: 240px;
+  }
 
   &___search-container {
     width: 100%;
@@ -89,4 +104,3 @@ onMounted(() => {
   }
 }
 </style>
-~/composables/api

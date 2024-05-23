@@ -10,6 +10,12 @@
       />
       <LinksOutlineButton text="Feedback" to="/" />
       <ButtonsFillButton
+        v-if="isSignIn"
+        text="Crate Prompt"
+        :is-show-arrow="true"
+        to="/prompts/create"
+      />
+      <ButtonsFillButton
         v-if="!isSignIn"
         text="Join Now"
         :is-show-arrow="true"
@@ -27,7 +33,7 @@
           ref="accountModal"
           class="header__account-modal"
         >
-          <div class="header__account-modal-item">Profile</div>
+          <!-- <div class="header__account-modal-item">Profile</div> -->
           <div class="header__account-modal-item" @click="emits('signOut')">
             Sign Out
           </div>
