@@ -6,17 +6,15 @@
       <div class="home__search-box">
         <SearchesPromptSearch
           placeholder="Search for tag, prompt, or username"
+          :value="query"
+          @change="(v) => (query = v)"
         />
       </div>
     </div>
     <div class="home__prompt-container">
-      <!-- <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard />
-      <CardsPromptCard /> -->
+      <template v-for="prompt in prompts">
+        <CardsPromptCard :title="prompt.description" :prompt="prompt.text" />
+      </template>
     </div>
   </div>
 </template>
@@ -26,6 +24,7 @@ import type { ReadPromptResponse } from "~/types/api";
 
 const prompts = ref<ReadPromptResponse[]>([]);
 const isLoading = ref(true);
+const query = ref("");
 
 const fetchPrompts = async () => {
   try {

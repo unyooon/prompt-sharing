@@ -1,5 +1,5 @@
 <template>
-  <div class="fill-button" @click="emits('click')">
+  <NuxtLink class="fill-button" :to="props.to">
     {{ props.text }}
     <svg
       v-if="isShowArrow"
@@ -19,29 +19,21 @@
         clip-rule="evenodd"
       ></path>
     </svg>
-  </div>
+  </NuxtLink>
 </template>
 
 <script lang="ts" setup>
 interface Props {
   text: string;
   isShowArrow: boolean;
-}
-
-interface Emits {
-  (e: "click"): void;
+  to: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   text: "Button",
   isShowArrow: false,
+  to: "/",
 });
-
-const emits = defineEmits<Emits>();
-
-const onClick = () => {
-  emits("click");
-};
 </script>
 
 <style lang="scss" scoped>

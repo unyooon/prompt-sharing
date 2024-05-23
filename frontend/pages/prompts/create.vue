@@ -3,15 +3,13 @@
     <div class="create-prompt__title">
       <h1>Create Prompt</h1>
     </div>
-    <form @submit.prevent="handleSubmit">
+    <div>
       <div class="create-prompt__form-group">
         <label class="create-prompt__label" for="description">Title</label>
         <FormsInput
-          type="text"
-          id="description"
-          v-model="form.description"
+          :value="form.description"
           placeholder="Title"
-          required
+          @change="(v) => (form.description = v)"
         />
       </div>
       <div class="create-prompt__form-group">
@@ -25,11 +23,9 @@
       <div class="create-prompt__form-group">
         <label class="create-prompt__label" for="text">Prompt</label>
         <FormsMultiTextInput
-          type="textarea"
-          id="text"
-          v-model="form.text"
           placeholder="Generate a 500-word essay discussing the impact of artificial intelligence on modern education. Include examples of AI applications in both K-12 and higher education settings."
-          required
+          :value="form.text"
+          @change="(v) => (form.text = v)"
         />
       </div>
       <!-- <div class="create-prompt__form-group">
@@ -56,9 +52,9 @@
         <button type="button" @click="addParameter">パラメータ追加</button>
       </div> -->
       <div class="create-prompt__submit">
-        <ButtonsFillButton text="Create" />
+        <ButtonsFillButton text="Create" @click="handleSubmit" />
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -97,7 +93,7 @@ const selectLlms = (llmId: number) => {
 const handleSubmit = async () => {
   try {
     await prompts.post(form.value);
-    router.push("/prompts");
+    // router.push("/prompts");
   } catch (error) {
     console.error("Error creating prompt:", error);
   }

@@ -1,17 +1,35 @@
 <template>
   <div class="prompt-search">
-    <input :placeholder="placeholder" type="text" />
+    <input
+      :value="value"
+      :placeholder="placeholder"
+      type="text"
+      @change="onChange"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 interface Props {
   placeholder: string;
+  value: string;
+}
+
+interface Emits {
+  (e: "change", value: string): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: "Search for tag, prompt, or username",
+  value: "",
 });
+
+const emits = defineEmits<Emits>();
+
+const onChange = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  emits("change", target.value);
+};
 </script>
 
 <style lang="scss" scoped>

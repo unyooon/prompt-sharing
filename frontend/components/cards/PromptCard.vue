@@ -8,7 +8,7 @@
         {{ prompt }}
       </p>
     </div>
-    <div class="prompt-card__tags">
+    <div v-if="tags.length > 0" class="prompt-card__tags">
       <div v-for="tag in tags" class="prompt-card__tag">
         {{ tag }}
       </div>
@@ -32,11 +32,8 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   title: "Title",
-  // prompt:
-  //   "Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt PromptPrompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt PromptPrompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt PromptPrompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt Prompt PromptPrompt Prompt",
-  prompt:
-    "こんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちはこんにちは",
-  tags: () => ["#midjourney"],
+  prompt: "",
+  tags: () => [],
 });
 
 const copy = () => {
@@ -51,7 +48,7 @@ const copy = () => {
   flex: 1 1 0%;
   break-inside: avoid;
   border: 1px solid #000;
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     Liberation Mono, Courier New, monospace;

@@ -9,13 +9,13 @@
         :active="checkActive('/features')"
       />
       <LinksOutlineButton text="Feedback" to="/" />
-      <ButtonsFillButton
+      <LinksFillButton
         v-if="isSignIn"
         text="Crate Prompt"
         :is-show-arrow="true"
         to="/prompts/create"
       />
-      <ButtonsFillButton
+      <LinksFillButton
         v-if="!isSignIn"
         text="Join Now"
         :is-show-arrow="true"

@@ -1,21 +1,35 @@
 <template>
   <div class="prompt-search">
-    <input :placeholder="placeholder" type="text" v-model="searchQuery" />
+    <input
+      :placeholder="placeholder"
+      type="text"
+      :value="value"
+      @change="(e) => onChange(e)"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-
 interface Props {
   placeholder: string;
+  value: string;
+}
+
+interface Emits {
+  (e: "change", value: string): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: "Search for tag, prompt, or username",
+  value: "",
 });
 
-const searchQuery = ref("");
+const emits = defineEmits<Emits>();
+
+const onChange = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  emits("change", target.value);
+};
 </script>
 
 <style lang="scss" scoped>
