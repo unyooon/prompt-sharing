@@ -1,34 +1,38 @@
 <template>
   <div class="create-prompt">
-    <div class="create-prompt__title">
-      <h1>Create Prompt</h1>
+    <div class="create-prompt__sidebar">
+      <SidebarsPromptsMenu />
     </div>
-    <div>
-      <div class="create-prompt__form-group">
-        <label class="create-prompt__label" for="description">Title</label>
-        <FormsInput
-          :value="form.description"
-          placeholder="Title"
-          @change="(v) => (form.description = v)"
-        />
+    <div class="create-prompt__main">
+      <div class="create-prompt__title">
+        <h1>Create Prompt</h1>
       </div>
-      <div class="create-prompt__form-group">
-        <label class="create-prompt__label" for="llmId">LLM</label>
-        <FormsSelect
-          :options="llms"
-          :selected-option-id="form.llmId"
-          @select-option="selectLlms"
-        />
-      </div>
-      <div class="create-prompt__form-group">
-        <label class="create-prompt__label" for="text">Prompt</label>
-        <FormsMultiTextInput
-          placeholder="Generate a 500-word essay discussing the impact of artificial intelligence on modern education. Include examples of AI applications in both K-12 and higher education settings."
-          :value="form.text"
-          @change="(v) => (form.text = v)"
-        />
-      </div>
-      <!-- <div class="create-prompt__form-group">
+      <div>
+        <div class="create-prompt__form-group">
+          <label class="create-prompt__label" for="description">Title</label>
+          <FormsInput
+            :value="form.description"
+            placeholder="Title"
+            @change="(v) => (form.description = v)"
+          />
+        </div>
+        <div class="create-prompt__form-group">
+          <label class="create-prompt__label" for="llmId">LLM</label>
+          <FormsSelect
+            :options="llms"
+            :selected-option-id="form.llmId"
+            @select-option="selectLlms"
+          />
+        </div>
+        <div class="create-prompt__form-group">
+          <label class="create-prompt__label" for="text">Prompt</label>
+          <FormsMultiTextInput
+            placeholder="Generate a 500-word essay discussing the impact of artificial intelligence on modern education. Include examples of AI applications in both K-12 and higher education settings."
+            :value="form.text"
+            @change="(v) => (form.text = v)"
+          />
+        </div>
+        <!-- <div class="create-prompt__form-group">
         <label class="create-prompt__label" for="parameters">パラメータ</label>
         <div
           v-for="(parameter, index) in form.parameters"
@@ -51,18 +55,23 @@
         </div>
         <button type="button" @click="addParameter">パラメータ追加</button>
       </div> -->
-      <div class="create-prompt__submit">
-        <ButtonsFillButton text="Create" @click="handleSubmit" />
+        <div class="create-prompt__submit">
+          <ButtonsFillButton
+            text="Create"
+            :is-show-arrow="false"
+            @click="handleSubmit"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { CreatePromptRequest, Parameter } from "~/types/api";
+import type { CreatePromptRequest, ReadLlmMasterResponse } from "~/types/api";
 
 const router = useRouter();
-const { prompts } = useApi();
+const { prompts, llmMasters } = useApi();
 
 const form = ref<CreatePromptRequest>({
   description: "",
@@ -71,12 +80,21 @@ const form = ref<CreatePromptRequest>({
   parameters: [],
 });
 
-// TODO: llmはAPIから取得
-const llms = ref([
-  { id: 1, name: "LLM 1" },
-  { id: 2, name: "LLM 2" },
-  { id: 3, name: "LLM 3" },
-]);
+const llms = ref<Array<{ id: number; name: string }>>([]);
+
+const fetchLlmMasters = async () => {
+  try {
+    const response = await llmMasters.get();
+    if (response) {
+      llms.value = response.map((llm) => ({
+        id: llm.llmId,
+        name: llm.displayName,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching llm masters:", error);
+  }
+};
 
 const addParameter = () => {
   form.value.parameters.push({ parameterId: 0, value: 0 });
@@ -92,12 +110,17 @@ const selectLlms = (llmId: number) => {
 
 const handleSubmit = async () => {
   try {
-    await prompts.post(form.value);
-    // router.push("/prompts");
+    prompts.post(form.value).then(() => {
+      router.push("/prompts");
+    });
   } catch (error) {
     console.error("Error creating prompt:", error);
   }
 };
+
+onMounted(() => {
+  fetchLlmMasters();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -108,11 +131,22 @@ h1 {
 }
 
 .create-prompt {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  display: flex;
+
+  &__sidebar {
+    width: 20%;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
+  }
+
+  &__main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    flex-grow: 1;
+  }
 
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     Liberation Mono, Courier New, monospace;

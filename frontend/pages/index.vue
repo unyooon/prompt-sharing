@@ -13,7 +13,11 @@
     </div>
     <div class="home__prompt-container">
       <template v-for="prompt in prompts">
-        <CardsPromptCard :title="prompt.description" :prompt="prompt.text" />
+        <CardsPromptCard
+          :title="prompt.description"
+          :prompt="prompt.text"
+          :tags="[prompt.llmName]"
+        />
       </template>
     </div>
   </div>

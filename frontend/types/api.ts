@@ -62,3 +62,11 @@ export interface Parameter {
   parameterId: number; // パラメータID
   value: number; // パラメータ値
 }
+
+/**
+ * LLMマスターのレスポンス
+ */
+export interface ReadLlmMasterResponse {
+  displayName: string; // 表示名
+  llmId: number; // LLMのID
+}
