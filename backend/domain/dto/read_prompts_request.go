@@ -9,4 +9,5 @@ type ReadPromptsRequest struct {
 	LlmId       *uint  `form:"llmId"`
 	IsPublic    *bool  `form:"isPublic"`
 	SearchQuery string `form:"q"`
+	IsMine      *bool  `form:"isMine"`
 }

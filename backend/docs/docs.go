@@ -60,6 +60,11 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "boolean",
+                        "name": "isMine",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
                         "name": "isPublic",
                         "in": "query"
                     },

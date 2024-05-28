@@ -1,7 +1,10 @@
 package domain
 
 import (
+	"errors"
+
 	"github.com/gin-gonic/gin"
+	"github.com/unyooon/prompt-sharing/core/constants"
 	"github.com/unyooon/prompt-sharing/core/helper"
 	"github.com/unyooon/prompt-sharing/domain/dto"
 	"github.com/unyooon/prompt-sharing/domain/exception"
@@ -25,6 +28,17 @@ func (i *ReadPromptsInteractor) Execute(c *gin.Context) (dto.ReadPromptsResponse
 	if qErr != nil {
 		return dto.ReadPromptsResponse{}, qErr
 	}
+
+	uid, existsUid := c.Get("userId")
+	if !existsUid {
+		e := &exception.CustomException{
+			Code:    constants.NotFoundCode,
+			Message: constants.NotFoundUserId,
+			Err:     errors.New("not found userId"),
+		}
+		return dto.ReadPromptsResponse{}, e
+	}
+
 	// クエリ文字列と引数を作成
 	var args []interface{}
 	var query string
@@ -45,6 +59,13 @@ func (i *ReadPromptsInteractor) Execute(c *gin.Context) (dto.ReadPromptsResponse
 		}
 		query += "description = ?"
 		args = append(args, req.SearchQuery)
+	}
+	if *req.IsMine {
+		if query != "" {
+			query += " AND "
+		}
+		query += "created_by = ?"
+		args = append(args, uid)
 	}
 
 	prompts, promptsErr := i.PromptRepository.ReadPrompts(req.Size, (req.Page-1)*req.Size, query, args...)
