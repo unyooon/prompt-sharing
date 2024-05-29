@@ -14,26 +14,32 @@
       </div>
     </div>
     <div class="prompt-card__menu">
-      <div class="prompt-card__copy-btn" @click="copy">
+      <div class="prompt-card__menu-btn" @click="copy">
         <img :src="CopyIcon" alt="" />
       </div>
+      <!-- <div v-show="showDelete" class="prompt-card__menu-btn" @click="copy">
+        <img :src="DeleteIcon" alt="" />
+      </div> -->
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import CopyIcon from "~/assets/images/copy.svg";
+import DeleteIcon from "~/assets/images/delete.svg";
 
 interface Props {
   title: string;
   prompt: string;
   tags: string[];
+  showDelete?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: "Title",
   prompt: "",
   tags: () => [],
+  showDelete: false,
 });
 
 const copy = () => {
@@ -98,17 +104,19 @@ const copy = () => {
   }
 
   &__menu {
-    padding: 1rem;
+    width: 100%;
+    padding: 0.75rem;
     width: 1.75rem;
     height: 1.75rem;
 
     display: flex;
     align-items: center;
-    justify-content: center;
   }
 
-  &__copy-btn {
+  &__menu-btn {
     cursor: pointer;
+    padding: 0.25rem;
+    margin-right: 0.5rem;
 
     img {
       width: 0.75rem;

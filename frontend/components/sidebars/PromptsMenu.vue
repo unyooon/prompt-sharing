@@ -27,4 +27,10 @@ const items: SidebarItem[] = [
 ];
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-menu {
+  min-width: 200px;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+}
+</style>

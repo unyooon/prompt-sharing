@@ -19,6 +19,7 @@ const { signIn, data } = useAuth();
 const router = useRouter();
 
 onMounted(() => {
+  console.log(data.value?.user);
   if (data.value?.user) {
     router.push("/");
   }

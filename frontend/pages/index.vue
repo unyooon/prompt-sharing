@@ -33,7 +33,7 @@ const query = ref("");
 const fetchPrompts = async () => {
   try {
     const api = useApi();
-    const response = await api.prompts.get(1, 30);
+    const response = await api.prompts.get({ page: 1, size: 30 });
     if (response) {
       prompts.value = response.data;
     }

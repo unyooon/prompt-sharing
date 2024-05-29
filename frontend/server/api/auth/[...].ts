@@ -14,6 +14,7 @@ async function refreshAccessToken(token: ExtendedJWT) {
         client_secret: config.googleClientSecret,
         grant_type: "refresh_token",
         refresh_token: token.providerInfo.refresh_token ?? "",
+        access_type: "offline",
       });
 
     const response = await fetch(url, {
@@ -29,12 +30,9 @@ async function refreshAccessToken(token: ExtendedJWT) {
       throw refreshedTokens;
     }
 
-    token.providerInfo = {
-      ...token.providerInfo,
-      access_token: refreshedTokens.access_token,
-      expire_at: Date.now() + refreshedTokens.expires_in * 1000,
-      refresh_token: refreshedTokens.refresh_token,
-    };
+    token.providerInfo.access_token = refreshedTokens.access_token;
+    token.providerInfo.expire_at =
+      Date.now() + refreshedTokens.expires_in * 1000;
 
     return {
       token,
@@ -80,11 +78,9 @@ export default NuxtAuthHandler({
         token.providerInfo = providerInfo;
       }
       if (token.providerInfo) {
-        // 現在のUnix時間を取得
-        const unixTime = Math.floor(Date.now() / 1000);
         if (
           token.providerInfo.expire_at &&
-          unixTime < token.providerInfo.expire_at
+          Date.now() < token.providerInfo.expire_at
         ) {
           return token;
         }

@@ -1,13 +1,13 @@
 <template>
   <div class="header">
-    <div class="header__logo">Service Name</div>
+    <div class="header__logo">Prompt Deck</div>
     <div class="header__buttons">
       <LinksHeaderButton text="Home" to="/" :active="checkActive('/')" />
-      <!-- <LinksHeaderButton
+      <LinksHeaderButton
         text="Features"
         to="/features"
         :active="checkActive('/features')"
-      /> -->
+      />
       <!-- <LinksOutlineButton text="Feedback" to="/" /> -->
       <LinksFillButton
         v-if="isSignIn"

@@ -133,12 +133,6 @@ h1 {
 .create-prompt {
   display: flex;
 
-  &__sidebar {
-    width: 20%;
-    padding: 1rem;
-    border-right: 1px solid #ccc;
-  }
-
   &__main {
     max-width: 600px;
     margin: 0 auto;
