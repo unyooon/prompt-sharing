@@ -8,4 +8,5 @@ import (
 type PromptRepositoryInterface interface {
 	Create(prompt entity.Prompt) (entity.Prompt, *exception.CustomException)
 	ReadPrompts(limit int, offset int, query interface{}, args ...interface{}) ([]entity.Prompt, *exception.CustomException)
+	Delete(prompt entity.Prompt) *exception.CustomException
 }
