@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     provider: {
       type: "authjs",
     },
+    baseURL: process.env.NUXT_AUTH_ORIGIN,
   },
 
   css: ["~/assets/scss/main.scss"],
@@ -48,6 +49,7 @@ export default defineNuxtConfig({
     googleClientId: "",
     googleClientSecret: "",
     authOrigin: "http://localhost:3000",
+    authSecret: "",
     public: {
       apiBaseUrl: "http://localhost:3000",
     },

@@ -33,7 +33,12 @@
           ref="accountModal"
           class="header__account-modal"
         >
-          <!-- <div class="header__account-modal-item">Profile</div> -->
+          <div
+            class="header__account-modal-item"
+            @click="router.push('/prompts')"
+          >
+            Prompts
+          </div>
           <div class="header__account-modal-item" @click="emits('signOut')">
             Sign Out
           </div>
